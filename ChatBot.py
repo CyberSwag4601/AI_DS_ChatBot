@@ -38,8 +38,8 @@ if prompt:
 
         reply = response.text
 
-    except Exception:
-        reply = "⚠️ AI service unavailable."
+    except Exception as e:
+        reply = f"⚠️ Error: {e}"
 
     with st.chat_message("assistant"):
         st.markdown(reply)
