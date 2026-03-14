@@ -13,7 +13,7 @@ API_KEY = st.secrets["API_KEY"]
 genai.configure(api_key=API_KEY)
 
 # ---------- MODEL ----------
-model = genai.GenerativeModel("gemini-1.5-flash-latest")
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 # ---------- SESSION STATES ----------
 if "chat" not in st.session_state:
