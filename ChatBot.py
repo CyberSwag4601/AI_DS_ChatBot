@@ -27,9 +27,13 @@ if prompt := st.chat_input("Say something..."):
     with st.chat_message("user"):
         st.markdown(prompt)
 
+    try:
     response = st.session_state.chat.send_message(prompt)
+    reply = response.text
+    except Exception as e:
+        reply = "⚠️ Error connecting to AI service."
 
-    st.session_state.messages.append({"role": "assistant", "content": response.text})
+    st.session_state.messages.append({"role": "assistant", "content": reply})
 
     with st.chat_message("assistant"):
-        st.markdown(response.text)
+        st.markdown(reply)
