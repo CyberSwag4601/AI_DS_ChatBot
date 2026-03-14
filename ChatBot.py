@@ -1,9 +1,11 @@
 import streamlit as st
 import google.generativeai as genai
-API_KEY = "AIzaSyBYkTSc8tj7mB_VlIomzdYrYIgoPoOqTzM"
+
+API_KEY = st.secrets["API_KEY"]
 
 genai.configure(api_key=API_KEY)
-model = genai.GenerativeModel('gemini-1.5-flash')
+
+model = genai.GenerativeModel('gemini-1.5-flash-latest')
 
 if "chat" not in st.session_state:
     st.session_state.chat = model.start_chat(history=[])
@@ -19,15 +21,15 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 if prompt := st.chat_input("Say something..."):
-    # Add user message to chat history
+
     st.session_state.messages.append({"role": "user", "content": prompt})
+
     with st.chat_message("user"):
         st.markdown(prompt)
+
     response = st.session_state.chat.send_message(prompt)
 
     st.session_state.messages.append({"role": "assistant", "content": response.text})
+
     with st.chat_message("assistant"):
         st.markdown(response.text)
-        
-
-
