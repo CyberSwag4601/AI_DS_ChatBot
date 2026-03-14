@@ -8,7 +8,7 @@ API_KEY = st.secrets["API_KEY"]
 client = genai.Client(api_key=API_KEY)
 
 st.title("🤖 AI Chatbot")
-st.write("Your AI Assistant")
+st.write("Your AI Assistant powered by Gemini")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -17,9 +17,9 @@ if st.button("Clear Chat"):
     st.session_state.messages = []
     st.rerun()
 
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
 
 prompt = st.chat_input("Type your message")
 
@@ -32,7 +32,7 @@ if prompt:
 
     try:
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-2.0-flash",
             contents=prompt
         )
 
